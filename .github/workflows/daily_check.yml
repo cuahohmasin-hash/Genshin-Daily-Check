@@ -1,0 +1,33 @@
+name: Genshin Daily Check
+
+on:
+  schedule:
+    # UTCの15:00 (JSTの00:00) に毎日実行
+    - cron: '0 15 * * *'
+  workflow_dispatch: # 手動実行ボタンも有効化
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Check Script
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          GENSHIN_UID: ${{ secrets.GENSHIN_UID }}
+          LTUID_V2: ${{ secrets.LTUID_V2 }}
+          LTOKEN_V2: ${{ secrets.LTOKEN_V2 }}
+          USER_ID: ${{ secrets.USER_ID }} # 通知時のメンション用(あなたのDiscord User ID)
+        run: python run_once.py
