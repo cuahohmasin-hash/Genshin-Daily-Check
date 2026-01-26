@@ -2,8 +2,8 @@ name: Genshin Daily Check
 
 on:
   schedule:
-    # UTCの15:00 (JSTの00:00) に毎日実行
-    - cron: '0 15 * * *'
+    # 毎時0分に実行 (1時間に1回)
+    - cron: '0 * * * *'
   workflow_dispatch: # 手動実行ボタンも有効化
 
 jobs:
