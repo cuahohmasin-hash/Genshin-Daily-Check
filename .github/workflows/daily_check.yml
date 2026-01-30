@@ -2,10 +2,10 @@ name: Genshin Daily Check
 
 on:
   schedule:
-    # 3分ごとに変更（テスト用）
-    - cron: '*/3 * * * *'
+    # 5分ごと（GitHub Actionsの最短間隔）
+    - cron: '*/5 * * * *'
   workflow_dispatch:
-  # プッシュ時にも実行（スケジューラーを起動させるため）
+  # プッシュ時にも実行（スケジューラーをアクティブにするため）
   push:
     branches: [ main ]
 
@@ -18,6 +18,7 @@ jobs:
           echo "=== Workflow Triggered ==="
           echo "Trigger: ${{ github.event_name }}"
           echo "UTC Time: $(date -u '+%Y-%m-%d %H:%M:%S')"
+          echo "Repository: ${{ github.repository }}"
           echo "========================="
 
       - name: Checkout code
