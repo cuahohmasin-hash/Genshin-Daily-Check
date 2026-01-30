@@ -2,20 +2,29 @@ name: Genshin Daily Check
 
 on:
   schedule:
-    # UTC時刻で指定（日本時間 - 9時間）
-    # 例: 日本時間9:00 = UTC 0:00
-    - cron: '*/5 * * * *'
+    # 3分ごとに変更（テスト用）
+    - cron: '*/3 * * * *'
   workflow_dispatch:
+  # プッシュ時にも実行（スケジューラーを起動させるため）
+  push:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug - Show trigger and time
+        run: |
+          echo "=== Workflow Triggered ==="
+          echo "Trigger: ${{ github.event_name }}"
+          echo "UTC Time: $(date -u '+%Y-%m-%d %H:%M:%S')"
+          echo "========================="
+
       - name: Checkout code
-        uses: actions/checkout@v4  # v3→v4に更新推奨
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5  # v4→v5に更新推奨
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
