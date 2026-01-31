@@ -17,8 +17,8 @@ HOYOLAB_COOKIES = {
 # ================= 設定エリア =================
 # 樹脂通知の範囲（この範囲内の時だけ通知することで「1回だけ」を実現）
 # 1時間ごとのチェックなら、上限は [閾値 + 10] くらいが適切です
-RESIN_THRESHOLD_MIN = 0
-RESIN_THRESHOLD_MAX = 2000
+RESIN_THRESHOLD_MIN = 180
+RESIN_THRESHOLD_MAX = 200
 # ============================================
 
 async def main():
